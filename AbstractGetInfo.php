@@ -83,11 +83,30 @@ abstract class AbstractGetInfo {
     }
 
     /**
+     * 格式化日期函数
+     * @param $data
+     * @return array
+     */
+    private function formatDateByData($data) {
+        $arr = array();
+        foreach ($data as $item) {
+            $tmp = explode("\t", $item);
+            $date = explode('-', $tmp[0]);
+            $date[1] = strlen($date[1]) > 1 ? $date[1] : '0' . $date[1];
+            $date[2] = strlen($date[2]) > 1 ? $date[2] : '0' . $date[2];
+            $tmp[0] = implode('-', $date);
+            $arr[] = implode("\t", $tmp);
+        }
+        return $arr;
+    }
+
+    /**
      * 输出到文件
      * @param $data
      */
     protected function putContent2File($data)
     {
+        $data = $this->formatDateByData($data);
         file_put_contents($this->filePath, implode("\n", $data));
     }
 
