@@ -44,7 +44,7 @@ class HuashiRecruitment extends AbstractGetInfo {
             }
             $arrRet[] = array(
                 'time' => $arrTmp[1] . '-' . $arrTmp[2] . '-' . $arrTmp[3],
-                'title' => "<a target=\"_blank\" href=\"$href\">" . substr($arrTmp[0], 0, strlen($arrTmp[0]) - 15) . '</a>',
+                'title' => "<a target=\"_blank\" href=\"$href\">" . $arrTmp[0] . '</a>',
             );
         }
         return $arrRet;
