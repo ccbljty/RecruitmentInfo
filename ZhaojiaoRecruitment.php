@@ -6,7 +6,7 @@
  * Date: 17-1-6
  * Time: 上午9:54
  */
-require_once 'AbstractGetInfo.php';
+require_once __DIR__ . '/AbstractGetInfo.php';
 class ZhaojiaoRecruitment extends AbstractGetInfo {
     public function __construct($day)
     {
@@ -25,7 +25,6 @@ class ZhaojiaoRecruitment extends AbstractGetInfo {
         $arrRet = array();
         $patternBlank = '/\s*/';
         $patternSlipt = '/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/';
-        echo $content;
         $doc = phpQuery::newDocumentHTML($content);
         phpQuery::selectDocument($doc);
         foreach (pq('ul.clearfix li') as $t) {

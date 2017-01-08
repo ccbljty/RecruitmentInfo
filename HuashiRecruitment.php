@@ -6,7 +6,7 @@
  * Date: 17-1-6
  * Time: 上午9:54
  */
-require_once 'AbstractGetInfo.php';
+require_once __DIR__ . '/AbstractGetInfo.php';
 class HuashiRecruitment extends AbstractGetInfo {
     public function __construct($day)
     {
@@ -71,3 +71,4 @@ class HuashiRecruitment extends AbstractGetInfo {
         $this->putContent2File($arr);
     }
 }
+

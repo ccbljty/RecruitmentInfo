@@ -6,13 +6,14 @@
  * Time: 下午9:44
  */
 
+// 记录执行日志
+file_put_contents(__DIR__ . '/run.log', date('Y/m/d H:i:s', time()) . "\n", FILE_APPEND);
 
 function __autoload($classname) {
     $classpath = __DIR__ . '/' . $classname.'.php';
     if(file_exists($classpath)){
         require_once($classpath);
     }
-    echo $classpath . "\n";
 }
 
 // 抓数据
@@ -24,13 +25,17 @@ $arrObj = array(
     'WanxingrencaiRecruitment',
     'ZhaojiaoRecruitment',
 );
+
 foreach ($arrObj as $class) {
     $obj = new $class($day);
+
     call_user_func(array($obj, 'run'));
+    file_put_contents(__DIR__ . '/run.log', serialize($obj) . "\n", FILE_APPEND);
 }
 
+
 // 发邮件
-require_once 'lib/swift_required.php';
+require_once __DIR__ . '/lib/swift_required.php';
 $username = 'changchunboeisr@163.com';
 $password = 'ccb13467076496';
 $to = array(
@@ -74,4 +79,3 @@ $message->setTo($to);
 $message->setFrom($from);
 // 发送邮件
 $result = $mailer->send($message);
-echo $result;

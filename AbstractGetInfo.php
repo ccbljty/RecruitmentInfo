@@ -5,8 +5,8 @@
  * Date: 17-1-6
  * Time: 上午9:35
  */
-include_once './CurlUtil.php';
-include_once './phpQuery/phpQuery.php';
+include_once __DIR__ . '/CurlUtil.php';
+include_once __DIR__ . '/phpQuery/phpQuery.php';
 abstract class AbstractGetInfo {
     // 开始时间
     protected $startTime;
