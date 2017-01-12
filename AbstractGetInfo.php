@@ -54,7 +54,7 @@ abstract class AbstractGetInfo {
     protected function formatContentByUrl($url)
     {
         $content = $this->getContentByUrl($url);
-        $content = strip_tags($content, '<div><ul><li><a>');
+        $content = strip_tags($content, '<table><tr><div><ul><li><a>');
         $arr = $this->fetchInfoFromContent($content);
         $tmpArr = array();
         if(empty($arr)) {
@@ -74,7 +74,7 @@ abstract class AbstractGetInfo {
     protected function isTarget($str) {
         $isTarget = 0;
         foreach ($this->city as $city) {
-            if(mb_stripos($str, $city) !== false) {
+            if(mb_stripos($str, $city) !== false && mb_strpos($str, "公司") === false) {
                 $isTarget = 1;
                 break;
             }

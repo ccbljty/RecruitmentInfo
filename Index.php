@@ -24,11 +24,13 @@ $arrObj = array(
     'TeacherRecruitment',
     'WanxingrencaiRecruitment',
     'ZhaojiaoRecruitment',
+    'BeishiRecruitment',
+    'ShoushiRecruitment',
+    'TianjinshifanRecruitment',
 );
 
 foreach ($arrObj as $class) {
     $obj = new $class($day);
-
     call_user_func(array($obj, 'run'));
     file_put_contents(__DIR__ . '/run.log', serialize($obj) . "\n", FILE_APPEND);
 }
