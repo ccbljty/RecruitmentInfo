@@ -27,6 +27,7 @@ $arrObj = array(
     'BeishiRecruitment',
     'ShoushiRecruitment',
     'TianjinshifanRecruitment',
+    'WuyouRecruitment',
 );
 
 foreach ($arrObj as $class) {

@@ -74,7 +74,7 @@ abstract class AbstractGetInfo {
     protected function isTarget($str) {
         $isTarget = 0;
         foreach ($this->city as $city) {
-            if(mb_stripos($str, $city) !== false && mb_strpos($str, "公司") === false) {
+            if(mb_stripos($str, $city) !== false && mb_strpos($str, "公司") === false && mb_strpos($str, "博士") === false) {
                 $isTarget = 1;
                 break;
             }

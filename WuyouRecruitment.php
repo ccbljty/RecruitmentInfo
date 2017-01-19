@@ -2,39 +2,47 @@
 /**
  * Created by PhpStorm.
  * User: bobo
- * 教师招聘网
+ * 无忧招聘
  * Date: 17-1-6
  * Time: 上午9:54
  */
 require_once __DIR__ . '/AbstractGetInfo.php';
-class TeacherRecruitment extends AbstractGetInfo {
+class WuyouRecruitment extends AbstractGetInfo {
     public function __construct($day)
     {
         parent::__construct($day);
-        $this->filePath = dirname(__FILE__) . '/data/jiaoshizhaopinwang.txt';
+        $this->filePath = dirname(__FILE__) . '/data/wuyouzhaopin.txt';
     }
 
     public function fetchInfoFromContent($content)
     {
+        $content = mb_convert_encoding($content, 'utf8', 'gb2312');
+//        echo $content;
         // TODO: Implement fetchInfoFromContent() method.
-        $content = mb_convert_encoding($content, 'UTF-8', 'GB2312');
         $arrRet = array();
         $patternBlank = '/\s*/';
-        $patternSlipt = '/(\d{4})\-(\d{1,2})\-(\d{1,2})/';
+        $patternSlipt = '/(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/';
         $doc = phpQuery::newDocumentHTML($content);
         phpQuery::selectDocument($doc);
-        foreach (pq('li.article') as $t) {
-            $href = pq('a', $t)->attr('href');
+        foreach (pq('div.news-list-left-content li') as $key => $t) {
+            $class = pq($t)->attr('class');
+            if(!empty($class)) {
+                continue;
+            }
+            $href = 'http://www.51test.net' . pq('a', $t)->attr('href');
             $str = $t -> nodeValue;
             $str = preg_replace($patternBlank, '', $str);
             $arrTmp = preg_split($patternSlipt, $str, -1, PREG_SPLIT_DELIM_CAPTURE);
+            if(count($arrTmp) < 5) {
+                continue;
+            }
             $curTime = mktime(0, 0, 0, $arrTmp[2], $arrTmp[3], $arrTmp[1]);
             if(($curTime - $this->startTime) < 0) {
                 continue;
             }
             $arrRet[] = array(
                 'time' => $arrTmp[1] . '-' . $arrTmp[2] . '-' . $arrTmp[3],
-                'title' => "<a target=\"_blank\" href=\"$href\">"  . substr($arrTmp[0], 0, strlen($arrTmp[0]) - 15) . '</a>',
+                'title' => "<a target=\"_blank\" href=\"$href\">"  . $arrTmp[0] . '</a>',
             );
         }
         return $arrRet;
@@ -43,23 +51,17 @@ class TeacherRecruitment extends AbstractGetInfo {
     public function run()
     {
         // TODO: Implement run() method.
-        $urls = array(
-            '天津' => 'tianjin/?City=&page=',
-            '山西' => 'shanxi1/?City=&page=',
-            '北京' => 'beijing/?City=&page=',
-            '河北' => 'hebei/?City=&page=',
+        $areaArr = array(
+            '天津' => 'tianjin/xinwen/',
+            '北京' => 'beijing/xinwen/',
+            '山西' => 'shanxi/xinwen/',
+            '廊坊' => 'hebei/langfang/',
         );
-        $urlPrefix = 'http://www.jiaoshizhaopin.net/';
         $arr = array();
-        foreach ($urls as $postFix) {
-            $page = 1;
-            $arr = array();
-            do{
-                $url = $urlPrefix . $postFix . $page;
-                $res = $this->formatContentByUrl($url);
-                $arr = array_merge($arr, $res);
-                $page++;
-            }while(!empty($res));
+        $url = 'http://www.51test.net/jszp/';
+        foreach ($areaArr as $areaId) {
+            $res = $this->formatContentByUrl($url . $areaId);
+            $arr = array_merge($arr, $res);
         }
         $this->putContent2File($arr);
     }
