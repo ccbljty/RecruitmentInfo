@@ -28,6 +28,7 @@ $arrObj = array(
     'ShoushiRecruitment',
     'TianjinshifanRecruitment',
     'WuyouRecruitment',
+    'ZhonggongRecruitment',
 );
 
 foreach ($arrObj as $class) {
@@ -35,7 +36,6 @@ foreach ($arrObj as $class) {
     call_user_func(array($obj, 'run'));
     file_put_contents(__DIR__ . '/run.log', serialize($obj) . "\n", FILE_APPEND);
 }
-
 
 // 发邮件
 require_once __DIR__ . '/lib/swift_required.php';
