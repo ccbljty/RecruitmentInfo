@@ -28,7 +28,7 @@ class ZhonggongRecruitment extends AbstractGetInfo {
             if(!empty($class)) {
                 continue;
             }
-            $href = 'http://www.51test.net' . pq('a', $t)->attr('href');
+            $href = pq('a', $t)->attr('href');
             $str = $t -> nodeValue;
             $str = preg_replace($patternBlank, '', $str);
             $arrTmp = preg_split($patternSlipt, $str, -1, PREG_SPLIT_DELIM_CAPTURE);
