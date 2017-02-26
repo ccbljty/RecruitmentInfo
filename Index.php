@@ -6,6 +6,7 @@
  * Time: 下午9:44
  */
 
+ini_set('max_execution_time', 600);
 // 记录执行日志
 file_put_contents(__DIR__ . '/run.log', date('Y/m/d H:i:s', time()) . "\n", FILE_APPEND);
 
@@ -82,3 +83,6 @@ $message->setTo($to);
 $message->setFrom($from);
 // 发送邮件
 $result = $mailer->send($message);
+if($result) {
+    echo "招聘消息已推送至邮箱，请查收！";
+}
