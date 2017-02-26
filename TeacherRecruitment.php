@@ -53,7 +53,6 @@ class TeacherRecruitment extends AbstractGetInfo {
         $arr = array();
         foreach ($urls as $postFix) {
             $page = 1;
-            $arr = array();
             do{
                 $url = $urlPrefix . $postFix . $page;
                 $res = $this->formatContentByUrl($url);

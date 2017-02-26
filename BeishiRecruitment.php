@@ -62,7 +62,6 @@ class BeishiRecruitment extends AbstractGetInfo {
                 unset($arr[$key]);
             }
         }
-        print_r($arr);
         $this->putContent2File($arr);
     }
 }
