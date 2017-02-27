@@ -41,7 +41,7 @@ foreach ($arrObj as $class) {
 // 发邮件
 require_once __DIR__ . '/lib/swift_required.php';
 $username = 'changchunboeisr@163.com';
-$password = 'ccb13467076496';
+$password = 'Ccb13467076496';
 $to = array(
     'zhangjineisr@163.com' => 'zj',
     'changchunboeisr@163.com' => 'ccb',
